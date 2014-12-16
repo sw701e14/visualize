@@ -36,6 +36,8 @@ namespace BikeVisualizer
                 ControlStyles.UserPaint,
                 true);
 
+
+
             foreach (Control c in this.Controls)
                 c.MouseWheel += (s, e) => OnMouseWheel(e);
         }
@@ -44,8 +46,9 @@ namespace BikeVisualizer
         {
             base.OnLoad(e);
 
-            mapImage = Image.FromFile("map.png");
-            transform.Translate((this.Width - 1400) / 2, (this.Height - 700) / 2);
+            //            mapImage = Image.FromFile("map.png");
+
+            //          transform.Translate((this.Width - 1400) / 2, (this.Height - 700) / 2);
 
             //BackgroundWorker w = new BackgroundWorker();
             //w.DoWork += (s, ee) => updateClusters();
@@ -56,17 +59,16 @@ namespace BikeVisualizer
 
         private void updateClusters()
         {
-            timer1.Stop();
             GPSLocation[] loc;
             GPSLocation[] hot;
 
             using (Database db = new Database())
             {
-                loc = db.RunSession(s => GPSData.GetAll(s).Select(x => x.Location).ToArray());
+                loc = db.RunSession(s => GPSData.GetAllHasMoved(s).Select(x => x.Location).ToArray());
                 hot = db.RunSession(s => GPSData.GetAllHasNotMoved(s).Select(x => x.Location).ToArray());
                 hotspots = db.RunSession(s => Hotspot.LoadAllHotspots(s).Select(x => x.getDataPoints().ToPixels()).ToArray());
 
-                var m = db.RunSession(s => MarkovChain.LoadMarkovChain(s));
+                //var m = db.RunSession(s => MarkovChain.LoadMarkovChain(s));
             }
 
             locations = loc.ToPixels();
@@ -79,27 +81,7 @@ namespace BikeVisualizer
         {
             base.OnPaint(e);
 
-            e.Graphics.Transform = transform;
-
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-
-            if (locations != null)
-                e.Graphics.FillPoints(Brushes.Purple, locations, 0.25f);
-
-            if (hotspotLocations != null)
-                e.Graphics.FillPoints(Brushes.Blue, hotspotLocations, 0.25f);
-
-            if (hotspots != null)
-                using (SolidBrush brush = new SolidBrush(Color.FromArgb(120, Color.Red)))
-                using (Pen pen = new Pen(Color.Red, 0.25f) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
-                    foreach (var h in hotspots)
-                    {
-                        e.Graphics.FillPolygon(brush, h);
-                        e.Graphics.DrawPolygon(pen, h);
-                    }
-
-            if (hotspotLocations2 != null)
-                e.Graphics.FillPoints(Brushes.Green, hotspotLocations2, 0.125f);
+            saveMap(e.Graphics);
 
             PointF[] p = new PointF[] { mouse };
             var m = e.Graphics.Transform;
@@ -114,6 +96,7 @@ namespace BikeVisualizer
 
             //GPSLocation loc = new GPSLocation(57.06m, 9.84m);
             //e.Graphics.FillPoint(Brushes.Red, loc);
+
         }
         protected override void OnPaintBackground(PaintEventArgs e)
         {
@@ -192,13 +175,42 @@ namespace BikeVisualizer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            updateClusters();
-            Invalidate();
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             updateClusters();
+        }
+
+        private void saveMap(Graphics Graphics)
+        {
+            Pen p = new Pen(Brushes.Gray, 0.1f);
+
+            Graphics.Transform = transform;
+
+            Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+            if (locations != null)
+                Graphics.FillRectangles(Brushes.Gray, locations, 0.15f);
+
+            if (hotspotLocations != null)
+                Graphics.FillPoints(Brushes.Black, hotspotLocations, 0.15f);
+
+            if (hotspots != null)
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(120, Color.Red)))
+                using (Pen pen = new Pen(Color.Black, 0.05f) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
+                    foreach (var h in hotspots)
+                    {
+                        // e.Graphics.FillPolygon(brush, h);
+                        Graphics.DrawPolygon(pen, h);
+                    }
+
+
+            Graphics.DrawCross(p, new GPSLocation(57.0482921M, 9.9229831M), 0.2f);
+            Graphics.DrawCross(p, new GPSLocation(57.0487731m, 9.9220231m), 0.2f); // nytorv 1
+            
+
         }
     }
 }
