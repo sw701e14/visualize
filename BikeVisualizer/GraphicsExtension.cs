@@ -75,20 +75,88 @@ namespace BikeVisualizer
             var p = ToPixels(location);
             graphics.FillEllipse(brush, p.X - radius, p.Y - radius, radius * 2, radius * 2);
         }
+
+        public static void FillPoint(this Graphics graphics, Brush brush, PointF location, float radius = 1.5f)
+        {
+            graphics.FillEllipse(brush, location.X - radius, location.Y - radius, radius * 2, radius * 2);
+        }
+
         public static void FillPoints(this Graphics graphics, Brush brush, GPSLocation[] locations, float radius = 1.5f)
         {
             foreach (var p in locations)
                 FillPoint(graphics, brush, p, radius);
         }
 
-        public static void FillPoint(this Graphics graphics, Brush brush, PointF p, float radius = 1.5f)
-        {
-            graphics.FillEllipse(brush, p.X - radius, p.Y - radius, radius * 2, radius * 2);
-        }
+        
         public static void FillPoints(this Graphics graphics, Brush brush, PointF[] locations, float radius = 1.5f)
         {
             foreach (var p in locations)
                 FillPoint(graphics, brush, p, radius);
+        }
+
+        public static void DrawCross(this Graphics graphics, Pen pen, GPSLocation loc, float radius = 1.5f)
+        {
+            var p = ToPixels(loc);
+
+            graphics.DrawLine(pen, new PointF(p.X - radius, p.Y), new PointF(p.X + radius, p.Y));
+            graphics.DrawLine(pen, new PointF(p.X, p.Y - radius), new PointF(p.X, p.Y + radius));
+        }
+
+        public static void DrawCross(this Graphics graphics, Pen pen, PointF p, float radius = 1.5f)
+        {
+            graphics.DrawLine(pen, new PointF(p.X - radius, p.Y), new PointF(p.X + radius, p.Y));
+            graphics.DrawLine(pen, new PointF(p.X, p.Y - radius), new PointF(p.X, p.Y + radius));
+        }
+
+        public static void DrawCrosses(this Graphics graphics, Pen pen, GPSLocation[] locations, float radius = 1.5f)
+        {
+            foreach (var p in locations)
+            {
+                DrawCross(graphics, pen, p, radius);
+            }
+        }
+
+        public static void DrawCrosses(this Graphics graphics, Pen pen, PointF[] locations, float radius = 1.5f)
+        {
+            foreach (var p in locations)
+            {
+                DrawCross(graphics, pen, p, radius);
+            }
+        }
+
+
+        public static void DrawPoint(this Graphics graphics, Pen brush, GPSLocation location, float radius = 1.5f)
+        {
+            var p = ToPixels(location);
+            graphics.DrawEllipse(brush, p.X - radius, p.Y - radius, radius * 2, radius * 2);
+        }
+        public static void DrawPoints(this Graphics graphics, Pen brush, GPSLocation[] locations, float radius = 1.5f)
+        {
+            foreach (var p in locations)
+                DrawPoint(graphics, brush, p, radius);
+        }
+
+        public static void DrawPoint(this Graphics graphics, Pen brush, PointF p, float radius = 1.5f)
+        {
+            graphics.DrawEllipse(brush, p.X - radius, p.Y - radius, radius * 2, radius * 2);
+        }
+        public static void DrawPoints(this Graphics graphics, Pen brush, PointF[] locations, float radius = 1.5f)
+        {
+            foreach (var p in locations)
+                DrawPoint(graphics, brush, p, radius);
+        }
+
+        public static void FillRectangle(this Graphics graphics, Brush brush, PointF p, float radius = 1.5f)
+        {
+            graphics.FillRectangle(brush, p.X - radius, p.Y - radius, radius * 2, radius * 2);
+        }
+
+        public static void FillRectangles(this Graphics graphics, Brush brush, PointF[] locations, float radius = 1.5f)
+        {
+            foreach (var p in locations)
+            {
+                graphics.FillRectangle(brush, p, radius);
+            }
         }
 
         public static void FillPolygon(this Graphics graphics, Brush brush, GPSLocation[] locations)
