@@ -84,6 +84,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\code\CityBikes\Shared.DAL\Shared.DAL.csproj">
+      <Project>{4af0e08d-5003-43b1-9794-b7ce198e4744}</Project>
+      <Name>Shared.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\code\CityBikes\Shared.DTO\Shared.DTO.csproj">
+      <Project>{981276fb-8563-48a0-a54b-d8d95e83e0da}</Project>
+      <Name>Shared.DTO</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
