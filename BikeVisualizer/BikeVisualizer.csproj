@@ -93,6 +93,10 @@
       <Project>{981276fb-8563-48a0-a54b-d8d95e83e0da}</Project>
       <Name>Shared.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DeadDog\DeadDog.csproj">
+      <Project>{675ab5e0-4637-4e6c-8d38-aa7bb135b5ce}</Project>
+      <Name>DeadDog</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
