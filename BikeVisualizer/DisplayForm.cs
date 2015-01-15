@@ -22,8 +22,7 @@ namespace BikeVisualizer
         private Draw.Matrix transform = new Draw.Matrix();
         private MapPainter mapPainter;
 
-        private List<IGPSConsumer> consumers;
-        private List<IPainter> painters;
+        private List<ColoredPainter> painters;
 
         public DisplayForm()
         {
@@ -36,22 +35,15 @@ namespace BikeVisualizer
                 ControlStyles.UserPaint,
                 true);
 
-            this.consumers = new List<IGPSConsumer>();
-            this.painters = new List<IPainter>();
-
-            StandstillPainter standstill = new StandstillPainter();
-            this.consumers.Add(standstill);
-            this.painters.Add(standstill);
-
-            HotspotsPainter hotspots = new HotspotsPainter();
-            this.consumers.Add(hotspots);
-            this.painters.Add(hotspots);
+            this.painters = new List<ColoredPainter>();
+            this.painters.Add(new StandstillPainter());
+            this.painters.Add(new HotspotsPainter());
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
             using (Database db = new Database())
-                foreach (var c in consumers)
+                foreach (var c in painters)
                     db.RunSession(session => c.Load(session));
         }
 

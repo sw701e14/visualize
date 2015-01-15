@@ -8,19 +8,27 @@ using System.Threading.Tasks;
 
 namespace BikeVisualizer
 {
-    public class HotspotsPainter : IPainter, IGPSConsumer
+    public class HotspotsPainter : ColoredPainter
     {
         private PointF[][] hotspots;
 
-        public void Paint(Graphics graphics)
+        public HotspotsPainter()
+            : this(Color.Orange)
+        { }
+        public HotspotsPainter(Color color)
+            : base(color)
+        {
+        }
+
+        public override void Paint(Graphics graphics, float widthScale)
         {
             if (hotspots == null)
                 return;
 
             float scale = graphics.Transform.Elements[0];
 
-            using (SolidBrush brush = new SolidBrush(Color.FromArgb(120, Color.Red)))
-            using (Pen pen = new Pen(Color.Red, 2f / scale) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
+            using (SolidBrush brush = new SolidBrush(Color.FromArgb(120, Color)))
+            using (Pen pen = new Pen(Color, 2f / scale) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
                 foreach (var h in hotspots)
                 {
                     graphics.FillPolygon(brush, h);
@@ -28,7 +36,7 @@ namespace BikeVisualizer
                 }
         }
 
-        public void Load(Shared.DAL.DatabaseSession session)
+        public override void Load(Shared.DAL.DatabaseSession session)
         {
             hotspots = Hotspot.LoadAllHotspots(session).Select(x => x.getDataPoints().ToPixels()).ToArray();
         }

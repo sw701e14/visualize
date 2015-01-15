@@ -8,20 +8,28 @@ using System.Threading.Tasks;
 
 namespace BikeVisualizer
 {
-    public class StandstillPainter : IPainter, IGPSConsumer
+    public class StandstillPainter : ColoredPainter
     {
         private PointF[] points;
 
-        public void Paint(Graphics graphics)
+        public StandstillPainter()
+            : this(Color.Green)
+        { }
+        public StandstillPainter(Color color)
+            : base(color)
+        {
+        }
+
+        public override void Paint(Graphics graphics, float widthScale)
         {
             if (points == null)
                 return;
 
-            float scale = graphics.Transform.Elements[0];
-            graphics.FillPoints(Brushes.Blue, points, 2f / scale);
+            using (SolidBrush brush = new SolidBrush(Color))
+                graphics.FillPoints(brush, points, 2f * widthScale);
         }
 
-        public void Load(Shared.DAL.DatabaseSession session)
+        public override void Load(Shared.DAL.DatabaseSession session)
         {
             points = GPSData.GetAllHasNotMoved(session).Select(x => x.Location.ToPixel()).ToArray();
         }
