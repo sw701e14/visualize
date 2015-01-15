@@ -97,6 +97,11 @@ namespace BikeVisualizer
                 scale /= 2;
                 zoom++;
             }
+            while (scale < 1)
+            {
+                scale *= 2;
+                zoom--;
+            }
 
             string urlStr = string.Format("https://maps.googleapis.com/maps/api/staticmap?center={0},{1}&zoom={3}&size=640x640&key={2}&markers=color:blue|label:S|57.0325,9.93",
                 location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture),
