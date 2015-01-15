@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Shared.DAL;
 
 namespace BikeVisualizer
 {
@@ -21,6 +22,8 @@ namespace BikeVisualizer
         private Draw.Matrix transform = new Draw.Matrix();
         private MapPainter mapPainter;
 
+        private List<IGPSConsumer> consumers;
+
         public DisplayForm()
         {
             InitializeComponent();
@@ -31,6 +34,15 @@ namespace BikeVisualizer
                 ControlStyles.ResizeRedraw |
                 ControlStyles.UserPaint,
                 true);
+
+            this.consumers = new List<IGPSConsumer>();
+        }
+
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            using (Database db = new Database())
+                foreach (var c in consumers)
+                    db.RunSession(session => c.Load(session));
         }
 
         protected override void OnLoad(EventArgs e)
@@ -49,6 +61,8 @@ namespace BikeVisualizer
             base.OnPaintBackground(e);
             mapPainter.Paint(e.Graphics);
         }
+
+        #region DragDropZoom
 
         private Point mouse = new Point();
         private bool moving = false;
@@ -116,5 +130,7 @@ namespace BikeVisualizer
 
             this.Invalidate();
         }
+
+        #endregion
     }
 }
