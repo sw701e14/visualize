@@ -63,6 +63,7 @@
     <Compile Include="IPainter.cs" />
     <Compile Include="MapPainter.cs" />
     <Compile Include="MatrixEntension.cs" />
+    <Compile Include="MovingDataPainter.cs" />
     <Compile Include="PointsPainter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
