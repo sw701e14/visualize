@@ -38,6 +38,10 @@ namespace BikeVisualizer
 
             this.consumers = new List<IGPSConsumer>();
             this.painters = new List<IPainter>();
+
+            HotspotsPainter hotspots = new HotspotsPainter();
+            this.consumers.Add(hotspots);
+            this.painters.Add(hotspots);
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
