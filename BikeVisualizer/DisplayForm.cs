@@ -23,6 +23,7 @@ namespace BikeVisualizer
         private MapPainter mapPainter;
 
         private List<IGPSConsumer> consumers;
+        private List<IPainter> painters;
 
         public DisplayForm()
         {
@@ -36,6 +37,7 @@ namespace BikeVisualizer
                 true);
 
             this.consumers = new List<IGPSConsumer>();
+            this.painters = new List<IPainter>();
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
@@ -56,6 +58,15 @@ namespace BikeVisualizer
             mapPainter.SetCenter(InitialCenter, 1);
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            e.Graphics.Transform = transform;
+            e.Graphics.SmoothingMode = Draw.SmoothingMode.HighQuality;
+
+            foreach (var p in painters)
+                p.Paint(e.Graphics);
+        }
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
