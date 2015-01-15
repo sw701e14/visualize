@@ -16,5 +16,13 @@ namespace BikeVisualizer
         {
             InitializeComponent();
         }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            Size diff = this.Size - this.ClientSize;
+            this.Size = new Size(640, 640) + diff;
+        }
     }
 }

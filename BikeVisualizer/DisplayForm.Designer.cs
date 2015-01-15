@@ -28,9 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // DisplayForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "DisplayForm";
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "DisplayForm";
+            this.ShowIcon = false;
+            this.Text = "GPS plotting";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
