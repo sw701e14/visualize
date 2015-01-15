@@ -28,7 +28,7 @@ namespace BikeVisualizer
             float scale = graphics.Transform.Elements[0];
 
             using (SolidBrush brush = new SolidBrush(Color.FromArgb(120, Color)))
-            using (Pen pen = new Pen(Color, 2f / scale) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
+            using (Pen pen = new Pen(Color, PointWidth / scale) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
                 foreach (var h in hotspots)
                 {
                     graphics.FillPolygon(brush, h);

@@ -23,7 +23,7 @@ namespace BikeVisualizer
                 return;
 
             using (SolidBrush brush = new SolidBrush(Color))
-                graphics.FillPoints(brush, points, 2f * widthScale);
+                graphics.FillPoints(brush, points, PointWidth * widthScale);
         }
 
         public override void Load(DatabaseSession session)
