@@ -39,6 +39,10 @@ namespace BikeVisualizer
             this.consumers = new List<IGPSConsumer>();
             this.painters = new List<IPainter>();
 
+            StandstillPainter standstill = new StandstillPainter();
+            this.consumers.Add(standstill);
+            this.painters.Add(standstill);
+
             HotspotsPainter hotspots = new HotspotsPainter();
             this.consumers.Add(hotspots);
             this.painters.Add(hotspots);
