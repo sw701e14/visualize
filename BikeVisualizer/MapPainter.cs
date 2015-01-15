@@ -80,7 +80,13 @@ namespace BikeVisualizer
         {
             lock (accesObj)
                 if (image != null)
+                {
+                    graphics.TranslateTransform(-319, -319, System.Drawing.Drawing2D.MatrixOrder.Append);
+                    graphics.ScaleTransform(center.Item2, center.Item2, System.Drawing.Drawing2D.MatrixOrder.Append);
+                    graphics.TranslateTransform(319, 319, System.Drawing.Drawing2D.MatrixOrder.Append);
+
                     graphics.DrawImage(image, new Rectangle(0, 0, 640, 640));
+                }
         }
 
         private Image loadImage(GPSLocation location, ref float scale)
