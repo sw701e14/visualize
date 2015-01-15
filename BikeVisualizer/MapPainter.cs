@@ -20,7 +20,7 @@ namespace BikeVisualizer
         private Queue<Tuple<GPSLocation, float>> newLocations;
 
         private object accesObj = new object();
-        private GPSLocation center;
+        private Tuple<GPSLocation, float> center;
         private Image image;
 
         public MapPainter(Control owner, string apiKey)
@@ -62,13 +62,14 @@ namespace BikeVisualizer
                 next = newLocations.Dequeue();
             }
 
-            Image imgTemp = loadImage(next.Item1);
+            float zoom = next.Item2;
+            Image imgTemp = loadImage(next.Item1, ref zoom);
             lock (accesObj)
             {
                 if (image != null)
                     image.Dispose();
                 image = imgTemp;
-                center = next.Item1;
+                center = Tuple.Create(next.Item1, zoom);
 
                 loader.ReportProgress(0);
             }
@@ -82,12 +83,20 @@ namespace BikeVisualizer
                     graphics.DrawImage(image, new Rectangle(0, 0, 640, 640));
         }
 
-        private Image loadImage(GPSLocation location)
+        private Image loadImage(GPSLocation location, ref float scale)
         {
-            string urlStr = string.Format("https://maps.googleapis.com/maps/api/staticmap?center={0},{1}&zoom=13&size=640x640&key={2}&markers=color:blue|label:S|57.0325,9.93",
+            int zoom = 13;
+            while (scale >= 2)
+            {
+                scale /= 2;
+                zoom++;
+            }
+
+            string urlStr = string.Format("https://maps.googleapis.com/maps/api/staticmap?center={0},{1}&zoom={3}&size=640x640&key={2}&markers=color:blue|label:S|57.0325,9.93",
                 location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture),
                 location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture),
-                apiKey);
+                apiKey,
+                zoom);
             URL url = new URL(urlStr);
 
             return url.GetImage();
