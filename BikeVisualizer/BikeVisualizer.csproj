@@ -57,6 +57,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GraphicsExtension.cs" />
+    <Compile Include="IGPSConsumer.cs" />
     <Compile Include="IPainter.cs" />
     <Compile Include="MapPainter.cs" />
     <Compile Include="MatrixEntension.cs" />
