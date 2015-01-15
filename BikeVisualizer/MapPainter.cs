@@ -103,14 +103,32 @@ namespace BikeVisualizer
                 zoom--;
             }
 
-            string urlStr = string.Format("https://maps.googleapis.com/maps/api/staticmap?center={0},{1}&zoom={3}&size=640x640&key={2}&markers=color:blue|label:S|57.0325,9.93",
+            string urlStr = string.Format("https://maps.googleapis.com/maps/api/staticmap?center={0},{1}&zoom={3}&size=640x640&key={2}",
                 location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture),
                 location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture),
                 apiKey,
                 zoom);
+#if DEBUG
+            urlStr += createMarkerString(Color.GreenYellow, 'O', new GPSLocation(57.0325m, 9.93m));
+            urlStr += createMarkerString(Color.DodgerBlue, 'A', new GPSLocation(57.005m, 9.98m));
+            urlStr += createMarkerString(Color.DodgerBlue, 'B', new GPSLocation(57.06m, 9.88m));
+#endif
             URL url = new URL(urlStr);
 
             return url.GetImage();
+        }
+
+        private string createMarkerString(Color color, char label, GPSLocation location)
+        {
+            return string.Format("&markers=color:{0}|label:{1}|{2},{3}",
+                HexConverter(color), label.ToString(),
+                location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture)
+            );
+        }
+        private static string HexConverter(Color c)
+        {
+            return "0x" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
         }
     }
 }
