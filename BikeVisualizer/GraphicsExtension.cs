@@ -10,37 +10,40 @@ namespace BikeVisualizer
 {
     public static class GraphicsExtension
     {
+        private static readonly PointF pixel1 = new PointF(28, 25), pixel2 = new PointF(611, 613);
+        private static readonly GPSLocation gps1 = new GPSLocation(57.06m, 9.88m), gps2 = new GPSLocation(57.005m, 9.98m);
+
         private static double getLatPixels(double lat)
         {
-            double x = 57.005 - 57.06;
-            double y = 657 - 69;
+            double x = (double)gps2.Latitude - (double)gps1.Latitude;
+            double y = pixel2.Y - pixel1.Y;
             double a = y / x;
 
-            return a * (lat - 57.005) + 657;
+            return a * (lat - (double)gps2.Latitude) + pixel2.Y;
         }
         private static double getLngPixels(double lng)
         {
-            double x = 10.02 - 9.84;
-            double y = 1237 - 188;
+            double x = (double)gps2.Longitude - (double)gps1.Longitude;
+            double y = pixel2.X - pixel1.X;
             double a = y / x;
 
-            return a * (lng - 10.02) + 1237;
+            return a * (lng - (double)gps2.Longitude) + pixel2.X;
         }
         private static double getLatGPS(double lat)
         {
-            double x = 657 - 69;
-            double y = 57.005 - 57.06;
+            double x = pixel2.Y - pixel1.Y;
+            double y = (double)gps2.Latitude - (double)gps1.Latitude;
             double a = y / x;
 
-            return a * (lat - 657) + 57.005;
+            return a * (lat - pixel2.Y) + (double)gps2.Latitude;
         }
         private static double getLngGPS(double lng)
         {
-            double x = 1237 - 188;
-            double y = 10.02 - 9.84;
+            double x = pixel2.X - pixel1.X;
+            double y = (double)gps2.Longitude - (double)gps1.Longitude;
             double a = y / x;
 
-            return a * (lng - 1237) + 10.02;
+            return a * (lng - pixel2.X) + (double)gps2.Longitude;
         }
         public static PointF ToPixels(this GPSLocation location)
         {
