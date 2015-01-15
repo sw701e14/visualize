@@ -1,17 +1,12 @@
-﻿using Shared.DTO;
-using System;
-using System.Collections.Generic;
+﻿using Shared.DAL;
+using Shared.DTO;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikeVisualizer
 {
-    public class StandstillPainter : ColoredPainter
+    public class StandstillPainter : PointsPainter
     {
-        private PointF[] points;
-
         public StandstillPainter()
             : this(Color.Green)
         { }
@@ -20,18 +15,9 @@ namespace BikeVisualizer
         {
         }
 
-        public override void Paint(Graphics graphics, float widthScale)
+        public override PointF[] LoadPoints(DatabaseSession session)
         {
-            if (points == null)
-                return;
-
-            using (SolidBrush brush = new SolidBrush(Color))
-                graphics.FillPoints(brush, points, 2f * widthScale);
-        }
-
-        public override void Load(Shared.DAL.DatabaseSession session)
-        {
-            points = GPSData.GetAllHasNotMoved(session).Select(x => x.Location.ToPixel()).ToArray();
+            return GPSData.GetAllHasNotMoved(session).Select(x => x.Location.ToPixel()).ToArray();
         }
     }
 }
