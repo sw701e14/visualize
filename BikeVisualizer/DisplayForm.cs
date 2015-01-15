@@ -60,6 +60,8 @@ namespace BikeVisualizer
 
             mapPainter = new MapPainter(this, "AIzaSyDEokkPEUDateZ7nwVv1_BhLkWXskGqMI0");
             mapPainter.SetCenter(InitialCenter, 1);
+
+            refreshTimer.Start();
         }
 
         protected override void OnPaint(PaintEventArgs e)
