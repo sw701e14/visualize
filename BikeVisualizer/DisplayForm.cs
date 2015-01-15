@@ -12,6 +12,8 @@ namespace BikeVisualizer
 {
     public partial class DisplayForm : Form
     {
+        private static readonly Size GoogleMapsSize = new Size(640, 640);
+
         public DisplayForm()
         {
             InitializeComponent();
@@ -22,7 +24,7 @@ namespace BikeVisualizer
             base.OnLoad(e);
 
             Size diff = this.Size - this.ClientSize;
-            this.Size = new Size(640, 640) + diff;
+            this.Size = GoogleMapsSize + diff;
         }
     }
 }
