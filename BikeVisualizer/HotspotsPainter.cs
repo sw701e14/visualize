@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.DTO;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,14 +10,27 @@ namespace BikeVisualizer
 {
     public class HotspotsPainter : IPainter, IGPSConsumer
     {
+        private PointF[][] hotspots;
+
         public void Paint(Graphics graphics)
         {
-            throw new NotImplementedException();
+            if (hotspots == null)
+                return;
+
+            float scale = graphics.Transform.Elements[0];
+
+            using (SolidBrush brush = new SolidBrush(Color.FromArgb(120, Color.Red)))
+            using (Pen pen = new Pen(Color.Red, 2f / scale) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
+                foreach (var h in hotspots)
+                {
+                    graphics.FillPolygon(brush, h);
+                    graphics.DrawPolygon(pen, h);
+                }
         }
 
         public void Load(Shared.DAL.DatabaseSession session)
         {
-            throw new NotImplementedException();
+            hotspots = Hotspot.LoadAllHotspots(session).Select(x => x.getDataPoints().ToPixels()).ToArray();
         }
     }
 }
