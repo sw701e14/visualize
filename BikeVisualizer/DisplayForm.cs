@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,8 @@ namespace BikeVisualizer
     public partial class DisplayForm : Form
     {
         private static readonly Size GoogleMapsSize = new Size(640, 640);
+        private static readonly GPSLocation InitialCenter = new GPSLocation(57.0325m, 9.93m);
+
         private Draw.Matrix transform = new Draw.Matrix();
 
         public DisplayForm()
