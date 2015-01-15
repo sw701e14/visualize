@@ -19,6 +19,7 @@ namespace BikeVisualizer
         private static readonly GPSLocation InitialCenter = new GPSLocation(57.0325m, 9.93m);
 
         private Draw.Matrix transform = new Draw.Matrix();
+        private MapPainter mapPainter;
 
         public DisplayForm()
         {
@@ -38,6 +39,15 @@ namespace BikeVisualizer
 
             Size diff = this.Size - this.ClientSize;
             this.Size = GoogleMapsSize + diff;
+
+            mapPainter = new MapPainter(this, "AIzaSyDEokkPEUDateZ7nwVv1_BhLkWXskGqMI0");
+            mapPainter.SetCenter(InitialCenter, 1);
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            mapPainter.Paint(e.Graphics);
         }
 
         private Point mouse = new Point();
@@ -61,7 +71,15 @@ namespace BikeVisualizer
         {
             base.OnMouseWheel(e);
             if (moving)
+            {
                 transform.Translate(e.X - mouse.X, e.Y - mouse.Y, Draw.MatrixOrder.Append);
+
+                transform.Invert();
+                var newCenter = transform.TransformPoint(new PointF(319, 319)).ToGPS();
+                transform.Invert();
+
+                mapPainter.SetCenter(newCenter, transform.Elements[0]);
+            }
             mouse = e.Location;
             this.Invalidate();
         }
@@ -89,6 +107,12 @@ namespace BikeVisualizer
             transform.Translate(-mouse.X, -mouse.Y, System.Drawing.Drawing2D.MatrixOrder.Append);
             transform.Scale(factor, factor, System.Drawing.Drawing2D.MatrixOrder.Append);
             transform.Translate(mouse.X, mouse.Y, System.Drawing.Drawing2D.MatrixOrder.Append);
+
+            transform.Invert();
+            var newCenter = transform.TransformPoint(new PointF(319, 319)).ToGPS();
+            transform.Invert();
+
+            mapPainter.SetCenter(newCenter, transform.Elements[0]);
 
             this.Invalidate();
         }
