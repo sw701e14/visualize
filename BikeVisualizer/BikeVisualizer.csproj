@@ -59,6 +59,7 @@
     <Compile Include="GraphicsExtension.cs" />
     <Compile Include="IPainter.cs" />
     <Compile Include="MapPainter.cs" />
+    <Compile Include="MatrixEntension.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DisplayForm.resx">
