@@ -75,6 +75,15 @@ namespace BikeVisualizer
         {
             base.OnPaintBackground(e);
             mapPainter.Paint(e.Graphics);
+
+#if DEBUG
+            e.Graphics.Transform = transform;
+            e.Graphics.SmoothingMode = Draw.SmoothingMode.HighQuality;
+
+            e.Graphics.DrawCross(Pens.Red, InitialCenter.ToPixel(), 5);
+            e.Graphics.DrawCross(Pens.Red, new GPSLocation(57.005m, 9.98m).ToPixel(), 5);
+            e.Graphics.DrawCross(Pens.Red, new GPSLocation(57.06m, 9.88m).ToPixel(), 5);
+#endif
         }
 
         #region DragDropZoom
