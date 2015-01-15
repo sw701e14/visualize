@@ -17,7 +17,7 @@ namespace BikeVisualizer
         private string apiKey;
 
         private BackgroundWorker loader;
-        private Queue<GPSLocation> newLocations;
+        private Queue<Tuple<GPSLocation, float>> newLocations;
 
         private object accesObj = new object();
         private GPSLocation center;
@@ -29,7 +29,7 @@ namespace BikeVisualizer
             this.apiKey = apiKey;
 
             this.loader = new BackgroundWorker();
-            this.newLocations = new Queue<GPSLocation>();
+            this.newLocations = new Queue<Tuple<GPSLocation, float>>();
 
             this.loader.WorkerReportsProgress = true;
             this.loader.DoWork += loader_DoWork;
@@ -37,8 +37,15 @@ namespace BikeVisualizer
             this.loader.RunWorkerAsync();
         }
 
+        public void SetCenter(GPSLocation center, float zoom)
+        {
+            lock (newLocations)
+                newLocations.Enqueue(Tuple.Create(center, zoom));
+        }
+
         void loader_DoWork(object sender, DoWorkEventArgs e)
         {
+        start:
             int count;
             lock (newLocations) { count = newLocations.Count; }
 
@@ -48,12 +55,24 @@ namespace BikeVisualizer
                 lock (newLocations) { count = newLocations.Count; }
             }
 
-            GPSLocation next;
+            Tuple<GPSLocation, float> next;
             lock (newLocations)
             {
                 while (newLocations.Count > 1) newLocations.Dequeue();
                 next = newLocations.Dequeue();
             }
+
+            Image imgTemp = loadImage(next.Item1);
+            lock (accesObj)
+            {
+                if (image != null)
+                    image.Dispose();
+                image = imgTemp;
+                center = next.Item1;
+
+                loader.ReportProgress(0);
+            }
+            goto start;
         }
 
         public void Paint(Graphics graphics)
