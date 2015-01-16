@@ -46,6 +46,7 @@ namespace BikeVisualizer
             using (Database db = new Database())
                 foreach (var c in painters)
                     db.RunSession(session => c.Load(session));
+            this.Invalidate();
         }
 
         protected override void OnLoad(EventArgs e)
