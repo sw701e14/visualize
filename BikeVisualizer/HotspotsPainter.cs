@@ -18,6 +18,22 @@ namespace BikeVisualizer
         public HotspotsPainter(Color color)
             : base(color)
         {
+            this.drawPoints = true;
+            this.drawFill = true;
+        }
+
+        private bool drawPoints;
+        private bool drawFill;
+
+        public bool DrawPoints
+        {
+            get { return drawPoints; }
+            set { drawPoints = value; }
+        }
+        public bool DrawFill
+        {
+            get { return drawFill; }
+            set { drawFill = value; }
         }
 
         public override void Paint(Graphics graphics, float widthScale)
@@ -31,8 +47,10 @@ namespace BikeVisualizer
             using (Pen pen = new Pen(Color, PointWidth / scale) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
                 foreach (var h in hotspots)
                 {
-                    graphics.FillPolygon(brush, h);
-                    graphics.DrawPolygon(pen, h);
+                    if (drawFill)
+                        graphics.FillPolygon(brush, h);
+                    if (drawPoints)
+                        graphics.DrawPolygon(pen, h);
                 }
         }
 
