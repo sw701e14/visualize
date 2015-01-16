@@ -72,6 +72,8 @@ namespace BikeVisualizer
         {
             base.OnLoad(e);
 
+            this.Location = new Point(10, 10);
+
             Size diff = this.Size - this.ClientSize;
             this.Size = GoogleMapsSize + diff;
 

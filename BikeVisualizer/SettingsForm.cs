@@ -25,6 +25,10 @@ namespace BikeVisualizer
 
             display = new DisplayForm(this, new ColoredPainter[0]);
             display.Show();
+
+            this.Location = new Point(
+                display.Location.X + display.Width + 30,
+                display.Location.Y + (display.Height - this.Height) / 2);
         }
 
         protected override void OnClosing(CancelEventArgs e)
