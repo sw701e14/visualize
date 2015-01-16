@@ -29,7 +29,12 @@ namespace BikeVisualizer
             var moving = new MovingDataPainter() { Enabled = false };
             movingCheck.CheckedChanged += (s, ee) => { moving.Enabled = movingCheck.Checked; display.Invalidate(); };
 
-            display = new DisplayForm(this, moving, standstill, new HotspotsPainter());
+            var hotspots = new HotspotsPainter() { Enabled = false };
+            hotspotCheck.CheckedChanged += (s, ee) => { hotspots.Enabled = groupBox1.Enabled = hotspotCheck.Checked; display.Invalidate(); };
+            hsPointCheck.CheckedChanged += (s, ee) => { hotspots.DrawPoints = hsPointCheck.Checked; display.Invalidate(); };
+            hsFillCheck.CheckedChanged += (s, ee) => { hotspots.DrawFill = hsFillCheck.Checked; display.Invalidate(); };
+
+            display = new DisplayForm(this, moving, standstill, hotspots);
             display.Show();
 
             this.Location = new Point(
