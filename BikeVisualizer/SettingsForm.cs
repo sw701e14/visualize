@@ -23,10 +23,13 @@ namespace BikeVisualizer
         {
             base.OnLoad(e);
 
-            StandstillPainter standstill = new StandstillPainter() { Enabled = false };
-            checkBox1.CheckedChanged += (s, ee) => { standstill.Enabled = checkBox1.Checked; display.Invalidate(); };
+            var standstill = new StandstillPainter() { Enabled = false };
+            standCheck.CheckedChanged += (s, ee) => { standstill.Enabled = standCheck.Checked; display.Invalidate(); };
 
-            display = new DisplayForm(this, new MovingDataPainter(), standstill, new HotspotsPainter());
+            var moving = new MovingDataPainter() { Enabled = false };
+            movingCheck.CheckedChanged += (s, ee) => { moving.Enabled = movingCheck.Checked; display.Invalidate(); };
+
+            display = new DisplayForm(this, moving, standstill, new HotspotsPainter());
             display.Show();
 
             this.Location = new Point(
