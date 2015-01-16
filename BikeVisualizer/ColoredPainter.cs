@@ -8,10 +8,14 @@ namespace BikeVisualizer
         private Color color;
         private float pointWidth;
 
+        private bool enabled;
+
         public ColoredPainter(Color color)
         {
             this.color = color;
             this.pointWidth = 2f;
+
+            this.enabled = true;
         }
 
         public Color Color
@@ -29,11 +33,18 @@ namespace BikeVisualizer
             }
         }
 
+        public bool Enabled
+        {
+            get { return enabled; }
+            set { enabled = value; }
+        }
+
         public abstract void Load(DatabaseSession session);
 
         public void Paint(Graphics graphics)
         {
-            Paint(graphics, 1f / graphics.Transform.Elements[0]);
+            if (enabled)
+                Paint(graphics, 1f / graphics.Transform.Elements[0]);
         }
         public abstract void Paint(Graphics graphics, float widthScale);
     }
