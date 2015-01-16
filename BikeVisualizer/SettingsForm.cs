@@ -12,9 +12,29 @@ namespace BikeVisualizer
 {
     public partial class SettingsForm : Form
     {
+        private DisplayForm display;
+
         public SettingsForm()
         {
             InitializeComponent();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            display = new DisplayForm(this, new ColoredPainter[0]);
+            display.Show();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            if (!Program.IsClosing)
+            {
+                Program.IsClosing = true;
+                display.Close();
+            }
         }
     }
 }

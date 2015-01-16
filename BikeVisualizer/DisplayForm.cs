@@ -24,6 +24,8 @@ namespace BikeVisualizer
 
         private List<ColoredPainter> painters;
 
+        private SettingsForm settings;
+
         public DisplayForm()
         {
             InitializeComponent();
@@ -39,6 +41,23 @@ namespace BikeVisualizer
             this.painters.Add(new MovingDataPainter());
             this.painters.Add(new StandstillPainter());
             this.painters.Add(new HotspotsPainter());
+        }
+
+        public DisplayForm(SettingsForm settings, IEnumerable<ColoredPainter> painters)
+            : this()
+        {
+            this.settings = settings;
+            this.painters.AddRange(painters);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            if (!Program.IsClosing)
+            {
+                Program.IsClosing = true;
+                settings.Close();
+            }
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)

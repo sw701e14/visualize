@@ -16,7 +16,9 @@ namespace BikeVisualizer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DisplayForm());
+            Application.Run(new SettingsForm());
         }
+
+        public static bool IsClosing = false;
     }
 }
