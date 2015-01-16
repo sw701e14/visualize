@@ -89,11 +89,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="map.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\code\CityBikes\Shared.DAL\Shared.DAL.csproj">
       <Project>{4af0e08d-5003-43b1-9794-b7ce198e4744}</Project>
       <Name>Shared.DAL</Name>
