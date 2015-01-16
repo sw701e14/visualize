@@ -60,7 +60,7 @@
             // hotspotCheck
             // 
             this.hotspotCheck.AutoSize = true;
-            this.hotspotCheck.Location = new System.Drawing.Point(0, -1);
+            this.hotspotCheck.Location = new System.Drawing.Point(12, 58);
             this.hotspotCheck.Name = "hotspotCheck";
             this.hotspotCheck.Size = new System.Drawing.Size(68, 17);
             this.hotspotCheck.TabIndex = 2;
@@ -71,10 +71,10 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.hotspotCheck);
             this.groupBox1.Controls.Add(this.hsFillCheck);
             this.groupBox1.Controls.Add(this.hsPointCheck);
-            this.groupBox1.Location = new System.Drawing.Point(12, 59);
+            this.groupBox1.Enabled = false;
+            this.groupBox1.Location = new System.Drawing.Point(12, 62);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(190, 65);
             this.groupBox1.TabIndex = 3;
@@ -83,6 +83,8 @@
             // hsPointCheck
             // 
             this.hsPointCheck.AutoSize = true;
+            this.hsPointCheck.Checked = true;
+            this.hsPointCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hsPointCheck.Location = new System.Drawing.Point(6, 19);
             this.hsPointCheck.Name = "hsPointCheck";
             this.hsPointCheck.Size = new System.Drawing.Size(55, 17);
@@ -93,6 +95,8 @@
             // hsFillCheck
             // 
             this.hsFillCheck.AutoSize = true;
+            this.hsFillCheck.Checked = true;
+            this.hsFillCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hsFillCheck.Location = new System.Drawing.Point(6, 42);
             this.hsFillCheck.Name = "hsFillCheck";
             this.hsFillCheck.Size = new System.Drawing.Size(38, 17);
@@ -105,6 +109,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(214, 394);
+            this.Controls.Add(this.hotspotCheck);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.movingCheck);
             this.Controls.Add(this.standCheck);
