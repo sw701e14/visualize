@@ -23,7 +23,7 @@ namespace BikeVisualizer
         {
             base.OnLoad(e);
 
-            display = new DisplayForm(this, new ColoredPainter[0]);
+            display = new DisplayForm(this, new MovingDataPainter(), new StandstillPainter(), new HotspotsPainter());
             display.Show();
 
             this.Location = new Point(

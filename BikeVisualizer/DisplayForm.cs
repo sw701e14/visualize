@@ -38,12 +38,9 @@ namespace BikeVisualizer
                 true);
 
             this.painters = new List<ColoredPainter>();
-            this.painters.Add(new MovingDataPainter());
-            this.painters.Add(new StandstillPainter());
-            this.painters.Add(new HotspotsPainter());
         }
 
-        public DisplayForm(SettingsForm settings, IEnumerable<ColoredPainter> painters)
+        public DisplayForm(SettingsForm settings, params ColoredPainter[] painters)
             : this()
         {
             this.settings = settings;
