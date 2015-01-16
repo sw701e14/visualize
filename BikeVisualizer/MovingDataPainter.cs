@@ -22,7 +22,7 @@ namespace BikeVisualizer
 
         public override PointF[] LoadPoints(DatabaseSession session)
         {
-            return GPSData.GetAll(session).Select(x => x.Location.ToPixel()).ToArray();
+            return GPSData.GetAllHasMoved(session).Select(x => x.Location.ToPixel()).ToArray();
         }
     }
 }
