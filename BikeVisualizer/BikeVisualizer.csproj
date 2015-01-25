@@ -44,6 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikePainter.cs" />
+    <Compile Include="ColoredCheckbox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColoredCheckbox.Designer.cs">
+      <DependentUpon>ColoredCheckbox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ColoredPainter.cs" />
     <Compile Include="DisplayForm.cs">
       <SubType>Form</SubType>
@@ -68,6 +75,9 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="StandstillPainter.cs" />
+    <EmbeddedResource Include="ColoredCheckbox.resx">
+      <DependentUpon>ColoredCheckbox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DisplayForm.resx">
       <DependentUpon>DisplayForm.cs</DependentUpon>
     </EmbeddedResource>

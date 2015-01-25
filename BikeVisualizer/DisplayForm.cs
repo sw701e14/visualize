@@ -61,6 +61,7 @@ namespace BikeVisualizer
         {
             using (Database db = new Database())
                 foreach (var c in painters)
+                    if(c.Enabled)
                     db.RunSession(session => c.Load(session));
             this.Invalidate();
         }

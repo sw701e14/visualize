@@ -28,44 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.standCheck = new System.Windows.Forms.CheckBox();
-            this.movingCheck = new System.Windows.Forms.CheckBox();
-            this.hotspotCheck = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.hsPointCheck = new System.Windows.Forms.CheckBox();
             this.hsFillCheck = new System.Windows.Forms.CheckBox();
+            this.hsPointCheck = new System.Windows.Forms.CheckBox();
+            this.movingCheck = new BikeVisualizer.ColoredCheckbox();
+            this.standCheck = new BikeVisualizer.ColoredCheckbox();
+            this.hotspotCheck = new BikeVisualizer.ColoredCheckbox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // standCheck
-            // 
-            this.standCheck.AutoSize = true;
-            this.standCheck.Location = new System.Drawing.Point(12, 12);
-            this.standCheck.Name = "standCheck";
-            this.standCheck.Size = new System.Drawing.Size(99, 17);
-            this.standCheck.TabIndex = 0;
-            this.standCheck.Text = "Standstill points";
-            this.standCheck.UseVisualStyleBackColor = true;
-            // 
-            // movingCheck
-            // 
-            this.movingCheck.AutoSize = true;
-            this.movingCheck.Location = new System.Drawing.Point(12, 35);
-            this.movingCheck.Name = "movingCheck";
-            this.movingCheck.Size = new System.Drawing.Size(102, 17);
-            this.movingCheck.TabIndex = 1;
-            this.movingCheck.Text = "\"Moving\" points";
-            this.movingCheck.UseVisualStyleBackColor = true;
-            // 
-            // hotspotCheck
-            // 
-            this.hotspotCheck.AutoSize = true;
-            this.hotspotCheck.Location = new System.Drawing.Point(12, 58);
-            this.hotspotCheck.Name = "hotspotCheck";
-            this.hotspotCheck.Size = new System.Drawing.Size(68, 17);
-            this.hotspotCheck.TabIndex = 2;
-            this.hotspotCheck.Text = "Hotspots";
-            this.hotspotCheck.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -80,18 +50,6 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
-            // hsPointCheck
-            // 
-            this.hsPointCheck.AutoSize = true;
-            this.hsPointCheck.Checked = true;
-            this.hsPointCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hsPointCheck.Location = new System.Drawing.Point(6, 19);
-            this.hsPointCheck.Name = "hsPointCheck";
-            this.hsPointCheck.Size = new System.Drawing.Size(55, 17);
-            this.hsPointCheck.TabIndex = 0;
-            this.hsPointCheck.Text = "Points";
-            this.hsPointCheck.UseVisualStyleBackColor = true;
-            // 
             // hsFillCheck
             // 
             this.hsFillCheck.AutoSize = true;
@@ -104,15 +62,57 @@
             this.hsFillCheck.Text = "Fill";
             this.hsFillCheck.UseVisualStyleBackColor = true;
             // 
+            // hsPointCheck
+            // 
+            this.hsPointCheck.AutoSize = true;
+            this.hsPointCheck.Checked = true;
+            this.hsPointCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.hsPointCheck.Location = new System.Drawing.Point(6, 19);
+            this.hsPointCheck.Name = "hsPointCheck";
+            this.hsPointCheck.Size = new System.Drawing.Size(57, 17);
+            this.hsPointCheck.TabIndex = 0;
+            this.hsPointCheck.Text = "Border";
+            this.hsPointCheck.UseVisualStyleBackColor = true;
+            // 
+            // movingCheck
+            // 
+            this.movingCheck.Checked = false;
+            this.movingCheck.Color = System.Drawing.Color.Purple;
+            this.movingCheck.Label = "\"Moving\" points";
+            this.movingCheck.Location = new System.Drawing.Point(12, 35);
+            this.movingCheck.Name = "movingCheck";
+            this.movingCheck.Size = new System.Drawing.Size(150, 17);
+            this.movingCheck.TabIndex = 5;
+            // 
+            // standCheck
+            // 
+            this.standCheck.Checked = false;
+            this.standCheck.Color = System.Drawing.Color.Green;
+            this.standCheck.Label = "Standstill points";
+            this.standCheck.Location = new System.Drawing.Point(12, 12);
+            this.standCheck.Name = "standCheck";
+            this.standCheck.Size = new System.Drawing.Size(190, 17);
+            this.standCheck.TabIndex = 4;
+            // 
+            // hotspotCheck
+            // 
+            this.hotspotCheck.Checked = false;
+            this.hotspotCheck.Color = System.Drawing.Color.Orange;
+            this.hotspotCheck.Label = "Hotspots";
+            this.hotspotCheck.Location = new System.Drawing.Point(12, 58);
+            this.hotspotCheck.Name = "hotspotCheck";
+            this.hotspotCheck.Size = new System.Drawing.Size(87, 17);
+            this.hotspotCheck.TabIndex = 6;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(214, 394);
             this.Controls.Add(this.hotspotCheck);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.movingCheck);
             this.Controls.Add(this.standCheck);
+            this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "SettingsForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
@@ -120,17 +120,16 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.CheckBox standCheck;
-        private System.Windows.Forms.CheckBox movingCheck;
-        private System.Windows.Forms.CheckBox hotspotCheck;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox hsFillCheck;
         private System.Windows.Forms.CheckBox hsPointCheck;
+        private ColoredCheckbox standCheck;
+        private ColoredCheckbox movingCheck;
+        private ColoredCheckbox hotspotCheck;
     }
 }
