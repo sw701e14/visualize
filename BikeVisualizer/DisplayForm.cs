@@ -95,6 +95,25 @@ namespace BikeVisualizer
             base.OnPaintBackground(e);
             mapPainter.Paint(e.Graphics);
 
+            e.Graphics.Transform = new Draw.Matrix();
+
+            float x = this.Width - Properties.Resources.location_bar.Width;
+            e.Graphics.DrawImage(Properties.Resources.location_bar, x, 0);
+
+            transform.Invert();
+            var cursorGPS = transform.TransformPoint((PointF)mouse).ToGPS();
+            transform.Invert();
+
+            string text = string.Empty;
+            text += cursorGPS.Latitude.ToString("0.000000", System.Globalization.CultureInfo.InvariantCulture);
+            text += ", ";
+            text += cursorGPS.Longitude.ToString("0.000000", System.Globalization.CultureInfo.InvariantCulture);
+            var size = e.Graphics.MeasureString(text, this.Font);
+            x += (Properties.Resources.location_bar.Width - size.Width) / 2;
+
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+            e.Graphics.DrawString(text, this.Font, Brushes.White, x, -1);
+
 #if DEBUG
             e.Graphics.Transform = transform;
             e.Graphics.SmoothingMode = Draw.SmoothingMode.HighQuality;
