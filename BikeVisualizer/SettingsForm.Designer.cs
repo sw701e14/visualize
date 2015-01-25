@@ -31,10 +31,13 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.hsFillCheck = new System.Windows.Forms.CheckBox();
             this.hsPointCheck = new System.Windows.Forms.CheckBox();
+            this.bikePanel = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.hotspotCheck = new BikeVisualizer.ColoredCheckbox();
             this.movingCheck = new BikeVisualizer.ColoredCheckbox();
             this.standCheck = new BikeVisualizer.ColoredCheckbox();
-            this.hotspotCheck = new BikeVisualizer.ColoredCheckbox();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -74,6 +77,37 @@
             this.hsPointCheck.Text = "Border";
             this.hsPointCheck.UseVisualStyleBackColor = true;
             // 
+            // bikePanel
+            // 
+            this.bikePanel.AutoScroll = true;
+            this.bikePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bikePanel.Location = new System.Drawing.Point(3, 16);
+            this.bikePanel.Name = "bikePanel";
+            this.bikePanel.Size = new System.Drawing.Size(184, 116);
+            this.bikePanel.TabIndex = 7;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox2.Controls.Add(this.bikePanel);
+            this.groupBox2.Location = new System.Drawing.Point(12, 133);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(190, 135);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Bikes";
+            // 
+            // hotspotCheck
+            // 
+            this.hotspotCheck.Checked = false;
+            this.hotspotCheck.Color = System.Drawing.Color.Orange;
+            this.hotspotCheck.Label = "Hotspots";
+            this.hotspotCheck.Location = new System.Drawing.Point(12, 58);
+            this.hotspotCheck.Name = "hotspotCheck";
+            this.hotspotCheck.Size = new System.Drawing.Size(87, 17);
+            this.hotspotCheck.TabIndex = 6;
+            // 
             // movingCheck
             // 
             this.movingCheck.Checked = false;
@@ -94,21 +128,12 @@
             this.standCheck.Size = new System.Drawing.Size(190, 17);
             this.standCheck.TabIndex = 4;
             // 
-            // hotspotCheck
-            // 
-            this.hotspotCheck.Checked = false;
-            this.hotspotCheck.Color = System.Drawing.Color.Orange;
-            this.hotspotCheck.Label = "Hotspots";
-            this.hotspotCheck.Location = new System.Drawing.Point(12, 58);
-            this.hotspotCheck.Name = "hotspotCheck";
-            this.hotspotCheck.Size = new System.Drawing.Size(87, 17);
-            this.hotspotCheck.TabIndex = 6;
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(214, 394);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.hotspotCheck);
             this.Controls.Add(this.movingCheck);
             this.Controls.Add(this.standCheck);
@@ -119,6 +144,7 @@
             this.Text = "Options";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -131,5 +157,7 @@
         private ColoredCheckbox standCheck;
         private ColoredCheckbox movingCheck;
         private ColoredCheckbox hotspotCheck;
+        private System.Windows.Forms.Panel bikePanel;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

@@ -51,7 +51,7 @@ namespace BikeVisualizer
             using (Shared.DAL.Database db = new Shared.DAL.Database())
                 bikes = db.RunSession(s => Shared.DTO.Bike.GetAll(s)).Select(x => x.Id).ToArray();
 
-            int y = groupBox1.Location.Y + groupBox1.Height;
+            int y = 0;
             for (int i = 0; i < bikes.Length; i++)
             {
                 Color color = bikeColors[i % bikeColors.Length];
@@ -61,9 +61,9 @@ namespace BikeVisualizer
                     Color = color,
                     Label = "Bike " + bikes[i]
                 };
-                this.Controls.Add(box);
+                bikePanel.Controls.Add(box);
 
-                box.Location = new Point(groupBox1.Location.X, y + box.Margin.Top);
+                box.Location = new Point(box.Margin.Left, y + box.Margin.Top);
                 y += box.Margin.Top + box.Height + 3;
 
                 BikePainter painter = new BikePainter(bikes[i], color) { Enabled = false };
