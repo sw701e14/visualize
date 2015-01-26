@@ -44,6 +44,7 @@
             this.hotspotCheck = new BikeVisualizer.ColoredCheckbox();
             this.movingCheck = new BikeVisualizer.ColoredCheckbox();
             this.standCheck = new BikeVisualizer.ColoredCheckbox();
+            this.mapsCheck = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -57,7 +58,7 @@
             this.groupBox1.Controls.Add(this.hsFillCheck);
             this.groupBox1.Controls.Add(this.hsPointCheck);
             this.groupBox1.Enabled = false;
-            this.groupBox1.Location = new System.Drawing.Point(12, 77);
+            this.groupBox1.Location = new System.Drawing.Point(12, 100);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(190, 65);
             this.groupBox1.TabIndex = 3;
@@ -93,9 +94,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.bikePanel);
-            this.groupBox2.Location = new System.Drawing.Point(12, 148);
+            this.groupBox2.Location = new System.Drawing.Point(12, 171);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(190, 133);
+            this.groupBox2.Size = new System.Drawing.Size(190, 135);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bikes";
@@ -107,7 +108,7 @@
             this.bikePanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.bikePanel.Location = new System.Drawing.Point(3, 16);
             this.bikePanel.Name = "bikePanel";
-            this.bikePanel.Size = new System.Drawing.Size(184, 114);
+            this.bikePanel.Size = new System.Drawing.Size(184, 116);
             this.bikePanel.TabIndex = 11;
             this.bikePanel.WrapContents = false;
             // 
@@ -128,7 +129,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.btnStep);
             this.groupBox3.Controls.Add(this.btnStart);
-            this.groupBox3.Location = new System.Drawing.Point(9, 287);
+            this.groupBox3.Location = new System.Drawing.Point(9, 312);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(190, 77);
             this.groupBox3.TabIndex = 10;
@@ -192,7 +193,7 @@
             this.hotspotCheck.Checked = false;
             this.hotspotCheck.Color = System.Drawing.Color.Orange;
             this.hotspotCheck.Label = "Hotspots";
-            this.hotspotCheck.Location = new System.Drawing.Point(12, 73);
+            this.hotspotCheck.Location = new System.Drawing.Point(12, 96);
             this.hotspotCheck.Name = "hotspotCheck";
             this.hotspotCheck.Size = new System.Drawing.Size(87, 17);
             this.hotspotCheck.TabIndex = 6;
@@ -202,7 +203,7 @@
             this.movingCheck.Checked = false;
             this.movingCheck.Color = System.Drawing.Color.Purple;
             this.movingCheck.Label = "\"Moving\" points";
-            this.movingCheck.Location = new System.Drawing.Point(12, 50);
+            this.movingCheck.Location = new System.Drawing.Point(12, 73);
             this.movingCheck.Name = "movingCheck";
             this.movingCheck.Size = new System.Drawing.Size(150, 17);
             this.movingCheck.TabIndex = 5;
@@ -212,16 +213,29 @@
             this.standCheck.Checked = false;
             this.standCheck.Color = System.Drawing.Color.Green;
             this.standCheck.Label = "Standstill points";
-            this.standCheck.Location = new System.Drawing.Point(12, 27);
+            this.standCheck.Location = new System.Drawing.Point(12, 50);
             this.standCheck.Name = "standCheck";
             this.standCheck.Size = new System.Drawing.Size(190, 17);
             this.standCheck.TabIndex = 4;
+            // 
+            // mapsCheck
+            // 
+            this.mapsCheck.AutoSize = true;
+            this.mapsCheck.Checked = true;
+            this.mapsCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mapsCheck.Location = new System.Drawing.Point(12, 27);
+            this.mapsCheck.Name = "mapsCheck";
+            this.mapsCheck.Size = new System.Drawing.Size(89, 17);
+            this.mapsCheck.TabIndex = 12;
+            this.mapsCheck.Text = "Google Maps";
+            this.mapsCheck.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(214, 376);
+            this.ClientSize = new System.Drawing.Size(214, 401);
+            this.Controls.Add(this.mapsCheck);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.hotspotCheck);
@@ -232,7 +246,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximumSize = new System.Drawing.Size(230, 800);
-            this.MinimumSize = new System.Drawing.Size(230, 410);
+            this.MinimumSize = new System.Drawing.Size(230, 412);
             this.Name = "SettingsForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Options";
@@ -265,5 +279,6 @@
         private System.Windows.Forms.ToolStripMenuItem inputNumberOfBikesBelowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox bikeCountBox;
+        private System.Windows.Forms.CheckBox mapsCheck;
     }
 }

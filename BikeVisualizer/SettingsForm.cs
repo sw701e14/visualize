@@ -13,6 +13,7 @@ namespace BikeVisualizer
     public partial class SettingsForm : Form
     {
         private DisplayForm display;
+        private DataLoader loader;
 
         public SettingsForm()
         {
@@ -24,9 +25,14 @@ namespace BikeVisualizer
                 int c;
                 resetToolStripMenuItem.Enabled = int.TryParse(bikeCountBox.Text, out c) && c > 0;
             };
-            resetDataToolStripMenuItem.Click += (s, e) =>
+            resetToolStripMenuItem.Click += (s, e) =>
             {
+                if (loader != null)
+                    loader.Exit();
 
+                loader = new DataLoader(int.Parse(bikeCountBox.Text));
+                btnStart.Enabled = true;
+                btnStep.Enabled = true;
             };
         }
 
@@ -39,6 +45,8 @@ namespace BikeVisualizer
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            mapsCheck.CheckedChanged += (s, ee) => { display.ShowBackground = mapsCheck.Checked; display.Invalidate(); };
 
             var moving = new MovingDataPainter() { Enabled = false };
             hookPainter(moving, movingCheck);
@@ -63,6 +71,8 @@ namespace BikeVisualizer
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
+            if (loader != null)
+                loader.Exit();
             if (!Program.IsClosing)
             {
                 Program.IsClosing = true;
@@ -72,11 +82,22 @@ namespace BikeVisualizer
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-
+            if (loader.Paused)
+            {
+                loader.Paused = false;
+                btnStep.Enabled = false;
+                btnStart.Text = "Pause simulation";
+            }
+            else
+            {
+                loader.Paused = true;
+                btnStep.Enabled = true;
+                btnStart.Text = "Start simulation";
+            }
         }
         private void btnStep_Click(object sender, EventArgs e)
         {
-
+            loader.LetOneThrough();
         }
         private void btnReset_Click(object sender, EventArgs e)
         {

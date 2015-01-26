@@ -47,6 +47,13 @@ namespace BikeVisualizer
             this.painters.AddRange(painters);
         }
 
+        private bool showBackground = true;
+        public bool ShowBackground
+        {
+            get { return showBackground; }
+            set { showBackground = value; }
+        }
+
         public void AddPainter(ColoredPainter painter)
         {
             this.painters.Add(painter);
@@ -102,7 +109,8 @@ namespace BikeVisualizer
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            mapPainter.Paint(e.Graphics);
+            if (showBackground)
+                mapPainter.Paint(e.Graphics);
 
             e.Graphics.Transform = new Draw.Matrix();
 

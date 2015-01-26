@@ -30,6 +30,8 @@ namespace BikeVisualizer
         {
             if (points == null)
                 return;
+            if (points.Length == 0)
+                return;
 
             using (SolidBrush brush = new SolidBrush(Color))
             {
