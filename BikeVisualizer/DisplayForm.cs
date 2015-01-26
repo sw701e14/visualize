@@ -47,6 +47,15 @@ namespace BikeVisualizer
             this.painters.AddRange(painters);
         }
 
+        public void AddPainter(ColoredPainter painter)
+        {
+            this.painters.Add(painter);
+        }
+        public void RemovePainter(ColoredPainter painter)
+        {
+            this.painters.Remove(painter);
+        }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
@@ -60,9 +69,9 @@ namespace BikeVisualizer
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
             using (Database db = new Database())
-                foreach (var c in painters)
-                    if(c.Enabled)
-                    db.RunSession(session => c.Load(session));
+                for (int i = 0; i < painters.Count; i++)
+                    if (painters[i].Enabled)
+                        db.RunSession(session => painters[i].Load(session));
             this.Invalidate();
         }
 

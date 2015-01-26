@@ -20,6 +20,8 @@ namespace BikeVisualizer
         {
             this.drawPoints = true;
             this.drawFill = true;
+
+            base.PointWidth *= 2;
         }
 
         private bool drawPoints;
@@ -41,10 +43,8 @@ namespace BikeVisualizer
             if (hotspots == null)
                 return;
 
-            float scale = graphics.Transform.Elements[0];
-
             using (SolidBrush brush = new SolidBrush(Color.FromArgb(120, Color)))
-            using (Pen pen = new Pen(Color, PointWidth / scale) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
+            using (Pen pen = new Pen(Color, PointWidth * widthScale) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round })
                 foreach (var h in hotspots)
                 {
                     if (drawFill)

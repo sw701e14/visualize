@@ -12,12 +12,22 @@ namespace BikeVisualizer
 {
     public partial class SettingsForm : Form
     {
-        private Color[] bikeColors = new Color[] { Color.DodgerBlue, Color.OrangeRed, Color.GreenYellow, Color.Purple, Color.HotPink, Color.MidnightBlue };
         private DisplayForm display;
 
         public SettingsForm()
         {
             InitializeComponent();
+
+            resetDataToolStripMenuItem.DropDownOpening += (s, e) => { resetToolStripMenuItem.Enabled = false; bikeCountBox.Text = ""; };
+            bikeCountBox.TextChanged += (s, e) =>
+            {
+                int c;
+                resetToolStripMenuItem.Enabled = int.TryParse(bikeCountBox.Text, out c) && c > 0;
+            };
+            resetDataToolStripMenuItem.Click += (s, e) =>
+            {
+
+            };
         }
 
         private void hookPainter(ColoredPainter painter, ColoredCheckbox check)
@@ -30,48 +40,19 @@ namespace BikeVisualizer
         {
             base.OnLoad(e);
 
-            List<ColoredPainter> painters = new List<ColoredPainter>();
-
             var moving = new MovingDataPainter() { Enabled = false };
             hookPainter(moving, movingCheck);
-            painters.Add(moving);
 
             var standstill = new StandstillPainter() { Enabled = false };
             hookPainter(standstill, standCheck);
-            painters.Add(standstill);
 
             var hotspots = new HotspotsPainter() { Enabled = false };
             hotspotCheck.CheckedChanged += (s, ee) => { hotspots.Enabled = groupBox1.Enabled = hotspotCheck.Checked; display.Invalidate(); };
             hotspotCheck.ColorChanged += (s, ee) => { hotspots.Color = hotspotCheck.Color; display.Invalidate(); };
             hsPointCheck.CheckedChanged += (s, ee) => { hotspots.DrawPoints = hsPointCheck.Checked; display.Invalidate(); };
             hsFillCheck.CheckedChanged += (s, ee) => { hotspots.DrawFill = hsFillCheck.Checked; display.Invalidate(); };
-            painters.Add(hotspots);
 
-            uint[] bikes;
-            using (Shared.DAL.Database db = new Shared.DAL.Database())
-                bikes = db.RunSession(s => Shared.DTO.Bike.GetAll(s)).Select(x => x.Id).ToArray();
-
-            int y = 0;
-            for (int i = 0; i < bikes.Length; i++)
-            {
-                Color color = bikeColors[i % bikeColors.Length];
-
-                ColoredCheckbox box = new ColoredCheckbox()
-                {
-                    Color = color,
-                    Label = "Bike " + bikes[i]
-                };
-                bikePanel.Controls.Add(box);
-
-                box.Location = new Point(box.Margin.Left, y + box.Margin.Top);
-                y += box.Margin.Top + box.Height + 3;
-
-                BikePainter painter = new BikePainter(bikes[i], color) { Enabled = false };
-                hookPainter(painter, box);
-                painters.Add(painter);
-            }
-
-            display = new DisplayForm(this, painters.ToArray());
+            display = new DisplayForm(this, new bikeUpdater(this), moving, standstill, hotspots);
             display.Show();
 
             this.Location = new Point(
@@ -88,5 +69,89 @@ namespace BikeVisualizer
                 display.Close();
             }
         }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnStep_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private class bikeUpdater : ColoredPainter
+        {
+            private Color[] bikeColors = new Color[] { Color.DodgerBlue, Color.OrangeRed, Color.GreenYellow, Color.Purple, Color.HotPink, Color.MidnightBlue };
+            private SettingsForm owner;
+
+            private Dictionary<uint, ColoredPainter> bikePainters;
+            private Dictionary<uint, ColoredCheckbox> bikeCheckboxes;
+
+            public bikeUpdater(SettingsForm owner)
+                : base(Color.Black)
+            {
+                this.owner = owner;
+
+                this.bikePainters = new Dictionary<uint, ColoredPainter>();
+                this.bikeCheckboxes = new Dictionary<uint, ColoredCheckbox>();
+            }
+
+            public override void Load(Shared.DAL.DatabaseSession session)
+            {
+                uint[] bikes = Shared.DTO.Bike.GetAll(session).Select(x => x.Id).ToArray();
+                uint[] old = bikePainters.Keys.ToArray();
+                Array.Sort(bikes);
+                Array.Sort(old);
+
+                for (int o = 0, n = 0; o < old.Length || n < bikes.Length; )
+                {
+                    int d = (o >= old.Length) ? 1 : ((n >= bikes.Length) ? -1 : o.CompareTo(n));
+                    if (d < 0)
+                    {
+                        var box = bikeCheckboxes[old[o]];
+                        var painter = bikePainters[old[o]];
+                        bikeCheckboxes.Remove(old[o]);
+                        bikePainters.Remove(old[o]);
+
+                        owner.bikePanel.Controls.Remove(box);
+                        owner.display.RemovePainter(painter);
+                        o++;
+                    }
+                    else if (d > 0)
+                    {
+                        Color color = bikeColors[n % bikeColors.Length];
+
+                        ColoredCheckbox box = new ColoredCheckbox()
+                        {
+                            Color = color,
+                            Label = "Bike " + bikes[n]
+                        };
+                        owner.bikePanel.Controls.Add(box);
+
+                        BikePainter painter = new BikePainter(bikes[n], color) { Enabled = false };
+                        owner.hookPainter(painter, box);
+                        owner.display.AddPainter(painter);
+
+                        bikePainters.Add(bikes[n], painter);
+                        bikeCheckboxes.Add(bikes[n], box);
+                        n++;
+                    }
+                    else if (d == 0)
+                    {
+                        n++;
+                        o++;
+                    }
+                }
+            }
+
+            public override void Paint(Graphics graphics, float widthScale)
+            {
+            }
+        }
+
     }
 }
