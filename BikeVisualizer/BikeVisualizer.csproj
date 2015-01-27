@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\code\CityBikes\ModelUpdater\ClusteringTechniques.cs">
+      <Link>ClusteringTechniques.cs</Link>
+    </Compile>
+    <Compile Include="..\code\CityBikes\ModelUpdater\ListExtension.cs">
+      <Link>ListExtension.cs</Link>
+    </Compile>
     <Compile Include="BikePainter.cs" />
     <Compile Include="ColoredCheckbox.cs">
       <SubType>UserControl</SubType>
@@ -65,6 +71,12 @@
     <Compile Include="IPainter.cs" />
     <Compile Include="MapPainter.cs" />
     <Compile Include="MatrixEntension.cs" />
+    <Compile Include="ModelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModelForm.Designer.cs">
+      <DependentUpon>ModelForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MovingDataPainter.cs" />
     <Compile Include="PointsPainter.cs" />
     <Compile Include="Program.cs" />
@@ -81,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DisplayForm.resx">
       <DependentUpon>DisplayForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelForm.resx">
+      <DependentUpon>ModelForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

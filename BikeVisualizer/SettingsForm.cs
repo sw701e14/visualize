@@ -60,7 +60,7 @@ namespace BikeVisualizer
             hsPointCheck.CheckedChanged += (s, ee) => { hotspots.DrawPoints = hsPointCheck.Checked; display.Invalidate(); };
             hsFillCheck.CheckedChanged += (s, ee) => { hotspots.DrawFill = hsFillCheck.Checked; display.Invalidate(); };
 
-            display = new DisplayForm(this, new bikeUpdater(this), new dateUpdater(this), moving, standstill, hotspots);
+            display = new DisplayForm(this, new bikeUpdater(this), new dateUpdater(this), hotspots, moving, standstill);
             display.Show();
 
             this.Location = new Point(
@@ -98,6 +98,12 @@ namespace BikeVisualizer
         private void btnStep_Click(object sender, EventArgs e)
         {
             loader.LetOneThrough();
+        }
+
+        private void buildModelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (ModelForm mf = new ModelForm())
+                mf.ShowDialog();
         }
 
         private class bikeUpdater : ColoredPainter
@@ -193,6 +199,5 @@ namespace BikeVisualizer
             {
             }
         }
-
     }
 }

@@ -41,11 +41,12 @@
             this.inputNumberOfBikesBelowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bikeCountBox = new System.Windows.Forms.ToolStripTextBox();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mapsCheck = new System.Windows.Forms.CheckBox();
+            this.simLabel = new System.Windows.Forms.Label();
             this.hotspotCheck = new BikeVisualizer.ColoredCheckbox();
             this.movingCheck = new BikeVisualizer.ColoredCheckbox();
             this.standCheck = new BikeVisualizer.ColoredCheckbox();
-            this.mapsCheck = new System.Windows.Forms.CheckBox();
-            this.simLabel = new System.Windows.Forms.Label();
+            this.buildModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -154,7 +155,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.resetDataToolStripMenuItem});
+            this.resetDataToolStripMenuItem,
+            this.buildModelToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(214, 24);
@@ -190,6 +192,26 @@
             this.resetToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.resetToolStripMenuItem.Text = "Reset!";
             // 
+            // mapsCheck
+            // 
+            this.mapsCheck.AutoSize = true;
+            this.mapsCheck.Checked = true;
+            this.mapsCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mapsCheck.Location = new System.Drawing.Point(12, 27);
+            this.mapsCheck.Name = "mapsCheck";
+            this.mapsCheck.Size = new System.Drawing.Size(89, 17);
+            this.mapsCheck.TabIndex = 12;
+            this.mapsCheck.Text = "Google Maps";
+            this.mapsCheck.UseVisualStyleBackColor = true;
+            // 
+            // simLabel
+            // 
+            this.simLabel.AutoSize = true;
+            this.simLabel.Location = new System.Drawing.Point(6, 16);
+            this.simLabel.Name = "simLabel";
+            this.simLabel.Size = new System.Drawing.Size(0, 13);
+            this.simLabel.TabIndex = 12;
+            // 
             // hotspotCheck
             // 
             this.hotspotCheck.Checked = false;
@@ -220,25 +242,12 @@
             this.standCheck.Size = new System.Drawing.Size(190, 17);
             this.standCheck.TabIndex = 4;
             // 
-            // mapsCheck
+            // buildModelToolStripMenuItem
             // 
-            this.mapsCheck.AutoSize = true;
-            this.mapsCheck.Checked = true;
-            this.mapsCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.mapsCheck.Location = new System.Drawing.Point(12, 27);
-            this.mapsCheck.Name = "mapsCheck";
-            this.mapsCheck.Size = new System.Drawing.Size(89, 17);
-            this.mapsCheck.TabIndex = 12;
-            this.mapsCheck.Text = "Google Maps";
-            this.mapsCheck.UseVisualStyleBackColor = true;
-            // 
-            // simLabel
-            // 
-            this.simLabel.AutoSize = true;
-            this.simLabel.Location = new System.Drawing.Point(6, 16);
-            this.simLabel.Name = "simLabel";
-            this.simLabel.Size = new System.Drawing.Size(0, 13);
-            this.simLabel.TabIndex = 12;
+            this.buildModelToolStripMenuItem.Name = "buildModelToolStripMenuItem";
+            this.buildModelToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.buildModelToolStripMenuItem.Text = "Build Model";
+            this.buildModelToolStripMenuItem.Click += new System.EventHandler(this.buildModelToolStripMenuItem_Click);
             // 
             // SettingsForm
             // 
@@ -292,5 +301,6 @@
         private System.Windows.Forms.ToolStripTextBox bikeCountBox;
         private System.Windows.Forms.CheckBox mapsCheck;
         private System.Windows.Forms.Label simLabel;
+        private System.Windows.Forms.ToolStripMenuItem buildModelToolStripMenuItem;
     }
 }
