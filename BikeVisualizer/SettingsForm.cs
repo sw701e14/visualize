@@ -60,7 +60,7 @@ namespace BikeVisualizer
             hsPointCheck.CheckedChanged += (s, ee) => { hotspots.DrawPoints = hsPointCheck.Checked; display.Invalidate(); };
             hsFillCheck.CheckedChanged += (s, ee) => { hotspots.DrawFill = hsFillCheck.Checked; display.Invalidate(); };
 
-            display = new DisplayForm(this, new bikeUpdater(this), moving, standstill, hotspots);
+            display = new DisplayForm(this, new bikeUpdater(this), new dateUpdater(this), moving, standstill, hotspots);
             display.Show();
 
             this.Location = new Point(
@@ -92,16 +92,12 @@ namespace BikeVisualizer
             {
                 loader.Paused = true;
                 btnStep.Enabled = true;
-                btnStart.Text = "Start simulation";
+                btnStart.Text = "Resume simulation";
             }
         }
         private void btnStep_Click(object sender, EventArgs e)
         {
             loader.LetOneThrough();
-        }
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-
         }
 
         private class bikeUpdater : ColoredPainter
@@ -167,6 +163,30 @@ namespace BikeVisualizer
                         o++;
                     }
                 }
+            }
+
+            public override void Paint(Graphics graphics, float widthScale)
+            {
+            }
+        }
+
+        private class dateUpdater : ColoredPainter
+        {
+            private SettingsForm settingsForm;
+
+            public dateUpdater(SettingsForm settingsForm)
+                : base(Color.Black)
+            {
+                this.settingsForm = settingsForm;
+            }
+
+            public override void Load(Shared.DAL.DatabaseSession session)
+            {
+                var latestArr = Shared.DTO.Bike.GetLatestData(session);
+                if (latestArr.Length == 0)
+                    settingsForm.simLabel.Text = "";
+                else
+                    settingsForm.simLabel.Text = latestArr.Max(x => x.QueryTime).ToString();
             }
 
             public override void Paint(Graphics graphics, float widthScale)

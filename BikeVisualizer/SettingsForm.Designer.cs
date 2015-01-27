@@ -45,6 +45,7 @@
             this.movingCheck = new BikeVisualizer.ColoredCheckbox();
             this.standCheck = new BikeVisualizer.ColoredCheckbox();
             this.mapsCheck = new System.Windows.Forms.CheckBox();
+            this.simLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -115,7 +116,7 @@
             // btnStart
             // 
             this.btnStart.Enabled = false;
-            this.btnStart.Location = new System.Drawing.Point(6, 19);
+            this.btnStart.Location = new System.Drawing.Point(6, 32);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(178, 23);
             this.btnStart.TabIndex = 9;
@@ -127,11 +128,12 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.simLabel);
             this.groupBox3.Controls.Add(this.btnStep);
             this.groupBox3.Controls.Add(this.btnStart);
             this.groupBox3.Location = new System.Drawing.Point(9, 312);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(190, 77);
+            this.groupBox3.Size = new System.Drawing.Size(190, 90);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Controls";
@@ -141,7 +143,7 @@
             this.btnStep.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStep.Enabled = false;
-            this.btnStep.Location = new System.Drawing.Point(6, 48);
+            this.btnStep.Location = new System.Drawing.Point(6, 61);
             this.btnStep.Name = "btnStep";
             this.btnStep.Size = new System.Drawing.Size(178, 23);
             this.btnStep.TabIndex = 11;
@@ -230,11 +232,19 @@
             this.mapsCheck.Text = "Google Maps";
             this.mapsCheck.UseVisualStyleBackColor = true;
             // 
+            // simLabel
+            // 
+            this.simLabel.AutoSize = true;
+            this.simLabel.Location = new System.Drawing.Point(6, 16);
+            this.simLabel.Name = "simLabel";
+            this.simLabel.Size = new System.Drawing.Size(0, 13);
+            this.simLabel.TabIndex = 12;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(214, 401);
+            this.ClientSize = new System.Drawing.Size(214, 414);
             this.Controls.Add(this.mapsCheck);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -245,8 +255,8 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximumSize = new System.Drawing.Size(230, 800);
-            this.MinimumSize = new System.Drawing.Size(230, 412);
+            this.MaximumSize = new System.Drawing.Size(230, 1200);
+            this.MinimumSize = new System.Drawing.Size(230, 448);
             this.Name = "SettingsForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Options";
@@ -254,6 +264,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -280,5 +291,6 @@
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox bikeCountBox;
         private System.Windows.Forms.CheckBox mapsCheck;
+        private System.Windows.Forms.Label simLabel;
     }
 }

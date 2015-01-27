@@ -30,17 +30,30 @@ namespace BikeVisualizer
         {
             if (points == null)
                 return;
-            if (points.Length == 0)
-                return;
 
-            using (SolidBrush brush = new SolidBrush(Color))
+            if (points.Length >= 5)
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(50, Color)))
+                    graphics.FillPoint(brush, points[4], PointWidth * widthScale);
+
+            if (points.Length >= 4)
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(100, Color)))
+                    graphics.FillPoint(brush, points[3], PointWidth * widthScale);
+
+            if (points.Length >= 3)
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(150, Color)))
+                    graphics.FillPoint(brush, points[2], PointWidth * widthScale);
+
+            if (points.Length >= 2)
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(200, Color)))
+                    graphics.FillPoint(brush, points[1], PointWidth * widthScale);
+
+            if (points.Length >= 1)
             {
-                graphics.FillPoints(brush, points, PointWidth * widthScale);
-                graphics.FillPoint(brush, points[0], (PointWidth + 3) * widthScale);
+                using (SolidBrush brush = new SolidBrush(Color))
+                    graphics.FillPoint(brush, points[0], (PointWidth + 3) * widthScale);
+                using (Pen pen = new Pen(Color.Black, widthScale))
+                    graphics.DrawPoint(pen, points[0], (PointWidth + 1.5f) * widthScale);
             }
-
-            using (Pen pen = new Pen(Color.Black, widthScale))
-                graphics.DrawPoint(pen, points[0], (PointWidth + 1.5f) * widthScale);
         }
     }
 }
